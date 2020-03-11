@@ -33,7 +33,6 @@ class ContestScraper:
             if pages is None or len(pages) == 0:
                 pages = ["12"]
 
-
             for page_index in pages:
                 if not first:
                     href = page_index.find_element_by_css_selector("a").get_attribute("href")
@@ -100,6 +99,7 @@ class ContestScraper:
 
                         # if data already exists
                         if handle_name in users_data:
+                            
                             for key in current_user_data.keys():
                                 current_problem_status = current_user_data[key]
 
@@ -110,12 +110,12 @@ class ContestScraper:
                         else:
                             users_data[handle_name] = current_user_data
 
-                ret = []
-                for handle_name in users_data:
-                    ret.append(users_data[handle_name])
+            ret = []
+            for handle_name in users_data:
+                ret.append(users_data[handle_name])
 
-                print("End Crawling")
-                return ret
+            print("End Crawling")
+            return ret
 
         except WebDriverException:
             raise Exception("Can't participants rows")

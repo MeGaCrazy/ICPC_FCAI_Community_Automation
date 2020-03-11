@@ -73,7 +73,7 @@ class CFBotManager:
 
 manager = CFBotManager(COMMUNITY_USER_NAME, COMMUNITY_PASSWORD)
 manager.generate_contests_in_group_standing_data(COMMUNITY_GROUP,
-                                                 ["Weekly Contest 4", "Sheet #3 (Arrays)",
-                                                  "Weekly Contest #3",
-                                                  "Sheet #4 (String)"
-                                                  ], FILTERATION2_PATH)
+                                                 ["Sheet #3 (Arrays)", "Weekly Contest 4",
+                                                 "Weekly Contest #3",
+                                                 "Sheet #4 (String)"
+], FILTERATION2_PATH)
