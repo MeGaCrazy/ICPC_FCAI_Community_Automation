@@ -1,4 +1,5 @@
 from CFBot.Navigation.Navigator import Navigator
+from CFBot.Scraping.Scraper import Scraper
 from consts import *
 
 
@@ -10,6 +11,7 @@ class CFBotManager:
 
         self.__driver = self.__set_up_driver()
         self.__navigator = Navigator(self.__driver)
+        self.__scraper = Scraper(self.__driver)
 
     def get_contests_in_group_standing_data(self, group_name, contests_name):
         self.__navigator.login(self.__username, self.__password)
@@ -30,6 +32,10 @@ class CFBotManager:
 
             # go to contest link
             self.__driver.get(contest_link)
+
+            # get participants data
+            contest_participants_data = self.__scraper.get_users_contest_standing_data()
+
 
             # close current windows
             self.__driver.close()
