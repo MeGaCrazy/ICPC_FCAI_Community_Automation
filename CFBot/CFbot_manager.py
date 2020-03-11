@@ -1,3 +1,4 @@
+from CFBot.DataManagement.DataManager import DataManager
 from CFBot.Navigation.Navigator import Navigator
 from CFBot.Scraping.Scraper import Scraper
 from consts import *
@@ -12,14 +13,16 @@ class CFBotManager:
         self.__driver = self.__set_up_driver()
         self.__navigator = Navigator(self.__driver)
         self.__scraper = Scraper(self.__driver)
+        self.__data_manager = DataManager()
 
-    def get_contests_in_group_standing_data(self, group_name, contests_name):
+    def generate_contests_in_group_standing_data(self, group_name, contests_name, output_path):
         self.__navigator.login(self.__username, self.__password)
         put_human_delay(1)
         self.__navigator.move_to_group(group_name, self.__username)
         contests_link = self.__navigator.get_contests_links_in_group(contests_name)
         put_human_delay(1)
 
+        contest_idx = 0
         # for each contest link
         for contest_link in contests_link:
             # Open a new window
@@ -36,6 +39,10 @@ class CFBotManager:
             # get participants data
             contest_participants_data = self.__scraper.get_users_contest_standing_data()
 
+            self.__data_manager.generate_contest_report_to_csv(contest_participants_data,
+                                                               output_path, contests_name[contest_idx])
+
+            contest_idx += 1
 
             # close current windows
             self.__driver.close()
@@ -65,8 +72,8 @@ class CFBotManager:
 
 
 manager = CFBotManager(COMMUNITY_USER_NAME, COMMUNITY_PASSWORD)
-manager.get_contests_in_group_standing_data(COMMUNITY_GROUP,
-                                            ["Sheet #3 (Arrays)",
-                                             "Weekly Contest #3",
-                                             "Sheet #4 (String)",
-                                             "Weekly Contest 4"])
+manager.generate_contests_in_group_standing_data(COMMUNITY_GROUP,
+                                                 ["Weekly Contest 4", "Sheet #3 (Arrays)",
+                                                  "Weekly Contest #3",
+                                                  "Sheet #4 (String)"
+                                                  ], FILTERATION2_PATH)
