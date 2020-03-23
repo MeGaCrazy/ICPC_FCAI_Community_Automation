@@ -1,7 +1,7 @@
 # ICPC_FCAI_Community_Automation
 >***This Project aims to automate most of process that Our Community Do***
 
-##Codeforces Bot
+## Codeforces Bot
 
 -  choose any group I need to get all its data
 - choose any contests I need to get all its data
